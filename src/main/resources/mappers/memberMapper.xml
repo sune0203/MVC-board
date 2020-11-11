@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<!-- 게시판 글 작성 -->
+	<insert id="register">
+	    INSERT INTO MEMBER(   EMAIL 
+	   					       , PW
+	   					       , NAME  
+	   					       , TEL 	)
+	                  VALUES(    #{email} 
+	                 		   , #{pw}
+	                 		   , #{name}
+	                 		   , #{tel})
+    </insert>
+     <!-- 로그인 -->
+	<select id="login" resultType="com.naver.vo.MemberVO">
+		SELECT * 
+		  FROM MEMBER
+		 WHERE EMAIL = #{email}
+<!-- 		   AND PW = #{pw}    -->
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="memberUpdate">
+		UPDATE MEMBER SET 
+		PW = #{pw},
+		NAME = #{name},
+		TEL = #{tel}
+		WHERE email = #{email}
+	</update>
+	
+		<!-- 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE EMAIL = #{email}
+	</select>
+</mapper>
